@@ -42,4 +42,3 @@ for i in 1:6   # Running 5 minute simulation 6 times.
     plot!(0:0.01:1, T.(0:0.01:1, 60 * 5 * i), label="After $(5*i) minutes (analytically)")
 end
 plot!(legend=:topleft, grid=true)
-gui()

@@ -22,9 +22,8 @@ sim_time = 5 * 60   # Total simulation time (s)
 num_time_step = round(sim_time / Δt)   # Number of time steps
 
 # Define the initial condition
-u = zeros(Nx)
 x_values = range(0, stop=L, length=Nx)
-u .= 60 .* x_values .+ 100 .* sin.(π .* x_values)
+u = 60 .* x_values .+ 100 .* sin.(π .* x_values)
 # Plot the initial condition
 plot(xlabel="x (m)", ylabel="Temperature (C)")
 plot!(x_values, u, label="Initial Condition")

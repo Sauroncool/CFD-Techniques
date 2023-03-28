@@ -35,7 +35,7 @@ B= create_matrix(Nx,-r1)
 C= create_matrix(Ny,-r2)
 D= sparse(create_matrix(Ny,r2))
 
-# Define the functions for the First and second step
+# Define the functions for the First and Second step
 function first_step(u)
     Nx, Ny = size(u)
     v = copy(u)

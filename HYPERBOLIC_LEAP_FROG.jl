@@ -1,11 +1,11 @@
 using Plots
 plotly(ticks=:native) # Allow to zoom and will adjust the grid
 
-function LF(u, c)
+function leapfrog_step(u, u_prev, c)
     v = copy(u)
-    v[1]=(u[2]+u[end])/2-(c/2)*(u[2]-u[end])
-    v[2:end-1] .=((u[3:end] .+ u[1:end-2]) ./ 2) .- (c/2) .* (u[3:end] .- u[1:end-2])
-    v[end]=(u[1]+u[end-1])/2-(c/2)*(u[1]-u[end-1])
+    v[1]=u_prev[1]-c*(u[2]-u[end])
+    v[2:end-1] .= u_prev[2:end-1] .- c .* (u[3:end] .- u[1:end-2])
+    v[end]=u_prev[end]-c*(u[1]-u[end-1])
     return v
 end
 
@@ -26,13 +26,15 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
 u = exp.(-4 .* (x_values .- 5) .^ 2)
+u_prev = copy(u)
+
 # Plot the initial condition
-plot(xlabel="x", ylabel="Amplitude",title="Lax Friedrich",legend=:topleft, grid=true)
+plot(xlabel="x", ylabel="Amplitude",title="Leapfrog",legend=:topleft, grid=true)
 plot!(x_values, u, label="Initial Condition")
 
 # Run the simulation
 for j in 1:num_time_step
-    global u = LF(u, c)
+    global u, u_prev = leapfrog_step(u, u_prev, c), u
 end
 
 # Numerical
@@ -44,7 +46,7 @@ num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
 
 # Run the simulation
 for j in 1:num_time_step_2
-    global u = LF(u,c)
+    global u, u_prev = leapfrog_step(u, u_prev, c), u
 end
 
 # Numerical

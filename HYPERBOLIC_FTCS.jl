@@ -27,7 +27,7 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 x_values = range(0, stop=L, length=Nx)
 u = exp.(-4 .* (x_values .- 5) .^ 2)
 # Plot the initial condition
-plot(xlabel="x (m)", ylabel="Temperature (C)",title="FTCS",legend=:topleft, grid=true)
+plot(xlabel="x", ylabel="Amplitude",title="FTCS",legend=:topleft, grid=true)
 plot!(x_values, u, label="Initial Condition")
 
 # Run the simulation

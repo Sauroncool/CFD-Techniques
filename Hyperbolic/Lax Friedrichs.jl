@@ -10,8 +10,8 @@ function LF(u, c)
 end
 
 # Define the grid parameters
-L = 10.0   # Length of the domain in the x direction (m)
-Δx = 0.01  # Grid spacing in the x direction (m)
+L = 10.0   # Length of the domain in the x direction 
+Δx = 0.01  # Grid spacing in the x direction 
 Nx = Int(L / Δx)   # Number of grid points in the x direction
 c = 0.5   # Courant Numbers
 
@@ -19,8 +19,8 @@ c = 0.5   # Courant Numbers
 α = 2   # Speed of Propagataion
 
 # Define the simulation parameters
-sim_time = 4   # Total simulation time (s)
-Δt = round(c * Δx / α, digits=4)  # time step size (s)
+sim_time = 4   # Total simulation time 
+Δt = round(c * Δx / α, digits=4)  # time step size 
 num_time_step = round(sim_time / Δt)   # Number of time steps
 
 # Define the initial condition
@@ -39,7 +39,7 @@ end
 plot!(x_values, u, label="After $(sim_time) seconds (numerically)")
 
 # Define the simulation parameters
-sim_time_2 = 6   # Total simulation time (s)
+sim_time_2 = 6   # Total simulation time 
 num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
 
 # Run the simulation

@@ -14,10 +14,10 @@ function ENO(u, Δt, α, Δx)
     n=length(u)
     v = similar(u)
     for i = 1:n
-        im1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
-        im2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
+        in1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
+        in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
         ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
-        v[i] = u[i] - ((Δt * α) * (((u[i] - u[im1]) / Δx) + (Δx / 2) * minmod((u[ip1] - 2 * u[i] + u[im1]) / (Δx^2), (u[i] - 2 * u[im1] + u[im2]) / (Δx^2))))
+        v[i] = u[i] - ((Δt * α) * (((u[i] - u[in1]) / Δx) + (Δx / 2) * minmod((u[ip1] - 2 * u[i] + u[in1]) / (Δx^2), (u[i] - 2 * u[in1] + u[in2]) / (Δx^2))))
     end
     return v
 end

@@ -1,12 +1,24 @@
 using Plots
 plotly(ticks=:native) # Allow to zoom and will adjust the grid
 
+# function WKL(u, c)
+#     v = copy(u)
+#     v[1] = u[1] - (c / 2) * (u[2] - u[end]) - (c / 6) * (-u[2] + 3 * u[1] - 3 * u[end] + u[end-1])
+#     v[2] = u[2] - (c / 2) * (u[3] - u[1]) - (c / 6) * (-u[3] + 3 * u[2] - 3 * u[1] + u[end])
+#     v[3:end-1] .= u[3:end-1] .- (c / 2) .* (u[4:end] .- u[2:end-2]) .- (c / 6) .* (-u[4:end] .+ 3 .* u[3:end-1] .- 3 .* u[2:end-2] .+ u[1:end-3])
+#     v[end] = u[end] - (c / 2) * (u[1] - u[end-1]) - (c / 6) * (-u[1] + 3 * u[end] - 3 * u[end-1] + u[end-2])
+#     return v
+# end
+
 function WKL(u, c)
-    v = copy(u)
-    v[1] = u[1] - (c / 2) * (u[2] - u[end]) - (c / 6) * (-u[2] + 3 * u[1] - 3 * u[end]+u[end-1])
-    v[2] = u[2] - (c / 2) * (u[3] - u[1]) - (c / 6) * (-u[3] + 3 * u[2] - 3 * u[1]+u[end])
-    v[3:end-1] .= u[3:end-1] .- (c / 2) .* (u[4:end] .- u[2:end-2]) .- (c / 6) .* (-u[4:end] .+ 3 .* u[3:end-1] .- 3 .* u[2:end-2] .+ u[1:end-3])
-    v[end] = u[end] - (c / 2) * (u[1] - u[end-1]) - (c / 6) * (-u[1] + 3 * u[end] -3 *u[end-1]+u[end-2])
+    n = length(u)
+    v = similar(u)
+    for i = 1:n
+        im1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
+        im2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
+        ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
+        v[i] = u[i] - (c / 2) * (u[ip1] - u[im1]) - (c / 6) * (-u[ip1] + 3 * u[i] - 3 * u[im1] + u[im2])
+    end
     return v
 end
 

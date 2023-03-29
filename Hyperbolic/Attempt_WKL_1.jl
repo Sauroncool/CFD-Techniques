@@ -29,7 +29,7 @@ Nx = Int(L / Δx)   # Number of grid points in the x direction
 c = 0.5   # Courant Numbers
 
 # Define the physical parameters
-α = 2   # Speed of Propagataion
+α = 2   # Speed of Propagation
 
 # Define the simulation parameters
 sim_time = 4   # Total simulation time 

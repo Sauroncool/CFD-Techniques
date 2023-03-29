@@ -1,5 +1,5 @@
 using Plots
-plotly(ticks=:native) # Allow to zoom and will adjust the grid
+plotly(ticks=:native) # Allow to zoom and adjust the grid
 
 function predictor(u, c) # FTFS Method
     v = copy(u)

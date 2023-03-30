@@ -39,6 +39,11 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
 u = exp.(-4 .* (x_values .- 5) .^ 2)
+# u = exp.(-30 .* (x_values .- 2) .^ 2) + exp.((x_values .- 5) .^ 2)
+# u = zeros(Nx)
+# u[(1 .<= x_values .< 2)] .= x_values[(1 .<= x_values .< 2)] .- 1
+# u[(2 .<= x_values .<3)] .= 3 .- x_values[(2 .<= x_values .<3)]
+
 # Plot the initial condition
 plot(xlabel="x", ylabel="Amplitude", title="MacCormack", legend=:topleft, grid=true)
 plot!(x_values, u, label="Initial Condition")

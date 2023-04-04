@@ -48,7 +48,7 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 x_values = range(0, stop=L, length=Nx)
 u = exp.(-4 .* (x_values .- 5) .^ 2)
 # Plot the initial condition
-plot(xlabel="x", ylabel="Amplitude", title="ENO", legend=:topleft, grid=true)
+plot(xlabel="x", ylabel="Amplitude", title="ENO", legend=:outertopleft, grid=true)
 plot!(x_values, u, label="Initial Condition")
 
 # Run the simulation
@@ -70,4 +70,6 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+T(x, t) = exp(-4(x-5)^2)  # Analytical Equation
+plot!(0:Δx:10, T.(0:Δx:10, sim_time), label="After $(sim_time_2) seconds (analytically)")
 # png("Second Order ENO")

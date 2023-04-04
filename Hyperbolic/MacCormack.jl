@@ -39,22 +39,24 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
 u = exp.(-4 .* (x_values .- 5) .^ 2)
-# u = exp.(-30 .* (x_values .- 2) .^ 2) + exp.((x_values .- 5) .^ 2)
-# u = zeros(Nx)
-# u[(1 .<= x_values .< 2)] .= x_values[(1 .<= x_values .< 2)] .- 1
-# u[(2 .<= x_values .<3)] .= 3 .- x_values[(2 .<= x_values .<3)]
 
 # Plot the initial condition
 plot(xlabel="x", ylabel="Amplitude", title="MacCormack", legend=:topleft, grid=true)
 plot!(x_values, u, label="Initial Condition")
+
+
 # Run the simulation
 for j in 1:num_time_step
     global u = MacCormack(u, c)
 end
-
 # Numerical
 plot!(x_values, u, label="After $(sim_time) seconds (numerically)")
-# Define the simulation parameters
+# Analytical
+T(x, t) = exp(-4(x-3)^2)  # Analytical Equation
+plot!(0:Δx:10, T.(0:Δx:10, sim_time), label="After $(sim_time) seconds (analytically)")
+
+
+# # Define the simulation parameters
 sim_time_2 = 6   # Total simulation time 
 num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
 
@@ -65,4 +67,6 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+T(x, t) = exp(-4(x-5)^2)  # Analytical Equation
+plot!(0:Δx:10, T.(0:Δx:10, sim_time), label="After $(sim_time_2) seconds (analytically)")
 # png("MacCormack")

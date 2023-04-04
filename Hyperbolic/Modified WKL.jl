@@ -1,14 +1,6 @@
 using Plots
 plotly(ticks=:native) # Allow to zoom and will adjust the grid
 
-# function WKL(u, c)
-#     v = copy(u)
-#     v[1] = u[1] - (c / 2) * (u[2] - u[end]) - (c / 6) * (-u[2] + 3 * u[1] - 3 * u[end] + u[end-1])
-#     v[2] = u[2] - (c / 2) * (u[3] - u[1]) - (c / 6) * (-u[3] + 3 * u[2] - 3 * u[1] + u[end])
-#     v[3:end-1] .= u[3:end-1] .- (c / 2) .* (u[4:end] .- u[2:end-2]) .- (c / 6) .* (-u[4:end] .+ 3 .* u[3:end-1] .- 3 .* u[2:end-2] .+ u[1:end-3])
-#     v[end] = u[end] - (c / 2) * (u[1] - u[end-1]) - (c / 6) * (-u[1] + 3 * u[end] - 3 * u[end-1] + u[end-2])
-#     return v
-# end
 
 function WKL(u, c)
     n = length(u)
@@ -17,7 +9,7 @@ function WKL(u, c)
         in1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
         in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
         ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
-        v[i] = u[i] - (c / 2) * (u[ip1] - u[in1]) - (c / 6) * (-u[ip1] + 3 * u[i] - 3 * u[in1] + u[in2])
+        v[i] = u[i] - (c / 2) * (u[ip1] - u[in1]) - (c / 6) * (-u[ip1] + 3 * u[i] - 3 * u[in1] + u[in2]) + (c^2 / 2) * (u[ip1] - 2 * u[i] + u[in1])
     end
     return v
 end
@@ -62,3 +54,15 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+
+# Analytical
+function Analytical(x, t)
+    peak_point = 5 + α * t
+    while (peak_point > 10)
+        peak_point = peak_point - 10
+    end
+    return exp(-4(x - peak_point)^2)
+end
+
+plot!(0:Δx:10, Analytical.(0:Δx:10, sim_time), label="After $(sim_time) seconds (analytically)")
+plot!(0:Δx:10, Analytical.(0:Δx:10, sim_time + sim_time_2), label="After $(sim_time+sim_time_2) seconds (analytically)")

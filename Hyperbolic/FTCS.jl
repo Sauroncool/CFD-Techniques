@@ -39,13 +39,14 @@ end
 plot!(x_values, u, label="After $(sim_time) seconds (numerically)")
 
 # # Define the simulation parameters
-# sim_time_2 = 6   # Total simulation time 
-# num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
+sim_time_2 = 6   # Total simulation time 
+num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
 
-# # Run the simulation
-# for j in 1:num_time_step_2
-#     global u = FTCS(u,c)
-# end
+# Run the simulation
+for j in 1:num_time_step_2
+    global u = FTCS(u,c)
+end
 
-# # Numerical
-# plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+# Numerical
+plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+# png("FTCS")

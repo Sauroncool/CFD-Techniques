@@ -2,7 +2,7 @@ using Plots
 plotly(ticks=:native) # Allow to zoom and will adjust the grid
 
 function predictor(u, c)    # Lax Friedrich Method
-    v = copy(u)
+    v = similar(u)
     v[1] = (u[2] + u[end]) / 2 - (c / 4) * (u[2] - u[end])
     v[2:end-1] .= ((u[3:end] .+ u[1:end-2]) ./ 2) .- (c / 4) .* (u[3:end] .- u[1:end-2])
     v[end] = (u[1] + u[end-1]) / 2 - (c / 4) * (u[1] - u[end-1])
@@ -10,7 +10,7 @@ function predictor(u, c)    # Lax Friedrich Method
 end
 
 function corrector(u, u_prev, c)    # Leap Frog Method
-    v = copy(u)
+    v = similar(u)
     v[1] = u_prev[1] - (c / 2) * (u[2] - u[end])
     v[2:end-1] .= u_prev[2:end-1] .- (c / 2) .* (u[3:end] .- u[1:end-2])
     v[end] = u_prev[end] - (c / 2) * (u[1] - u[end-1])
@@ -64,3 +64,4 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+# png("Richtmyer")

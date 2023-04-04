@@ -51,4 +51,4 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
-# png("Leap Frog")
+# png("Leapfrog")

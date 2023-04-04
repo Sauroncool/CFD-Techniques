@@ -61,4 +61,4 @@ end
 
 plot!(0:Δx:10, Analytical.(0:Δx:10, sim_time), label="After $(sim_time) seconds (analytically)")
 plot!(0:Δx:10, Analytical.(0:Δx:10, sim_time+sim_time_2), label="After $(sim_time+sim_time_2) seconds (analytically)")
-#png("Lax Friedrichs")
+# png("1_Lax Friedrichs")

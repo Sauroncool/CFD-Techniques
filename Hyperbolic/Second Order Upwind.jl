@@ -2,11 +2,14 @@ using Plots
 plotly(ticks=:native) # Allow to zoom and will adjust the grid
 
 function SOUPW(u, c)
-    v = copy(u)
-    v[1] = u[1] - (c / 2) * (3 * u[1] - 4 * u[end] + u[end-1])
-    v[2] = u[2] - (c / 2) * (3 * u[2] - 4 * u[1] + u[end])
-    v[3:end-1] .= u[3:end-1] .- (c / 2) .* (3 .* u[3:end-1] .- 4 .* u[2:end-2] .+ u[1:end-3])
-    v[end] = u[end] - (c / 2) * (3 * u[end] - 4 * u[end-1] + u[end-2])
+    n = length(u)
+    v = similar(u)
+    for i = 1:n
+        in1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
+        in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
+        ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
+        v[i] = u[i] - (c / 2) * (3*u[i] - 4*u[in1] + u[in2]) # + (c^2 / 2) * (u[ip1] - 2 * u[i] + u[in1])
+    end
     return v
 end
 

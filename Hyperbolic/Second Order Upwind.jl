@@ -8,7 +8,7 @@ function SOUPW(u, c)
         in1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
         in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
         ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
-        v[i] = u[i] - (c / 2) * (3*u[i] - 4*u[in1] + u[in2]) # + (c^2 / 2) * (u[ip1] - 2 * u[i] + u[in1])
+        v[i] = u[i] - (c / 2) * (3*u[i] - 4*u[in1] + u[in2])  + (c^2 / 2) * (u[ip1] - 2 * u[i] + u[in1])
     end
     return v
 end

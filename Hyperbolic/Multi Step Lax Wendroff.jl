@@ -28,7 +28,7 @@ end
 L = 10.0   # Length of the domain in the x direction 
 Δx = 0.01  # Grid spacing in the x direction 
 Nx = Int(L / Δx)   # Number of grid points in the x direction
-c = 0.5   # Courant Numbers
+c = 1.2   # Courant Numbers
 
 # Define the physical parameters
 α = 2   # Speed of Propagation
@@ -47,7 +47,7 @@ plot(xlabel="x", ylabel="Amplitude", title="Multi Step Lax Wendroff", legend=:ou
 plot!(x_values, u, label="Initial Condition")
 
 # Run the simulation
-for j in 1:num_time_step
+for j in 1:20
     global u = LW(u, c)
 end
 
@@ -55,14 +55,14 @@ end
 plot!(x_values, u, label="After $(sim_time) seconds (numerically)")
 
 # Define the simulation parameters
-sim_time_2 = 6   # Total simulation time 
-num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
+# sim_time_2 = 6   # Total simulation time 
+# num_time_step_2 = round(sim_time_2 / Δt)   # Number of time steps
 
-# Run the simulation
-for j in 1:num_time_step_2
-    global u = LW(u, c)
-end
+# # Run the simulation
+# for j in 1:num_time_step_2
+#     global u = LW(u, c)
+# end
 
-# Numerical
-plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+# # Numerical
+# plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
 # png("1_Multi Step Lax Wendroff")

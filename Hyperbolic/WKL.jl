@@ -10,6 +10,7 @@ function WKL(u, c)
         in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
         ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
         v[i] = u[i] - (c / 2) * (u[ip1] - u[in1]) - (c / 6) * (-u[ip1] + 3 * u[i] - 3 * u[in1] + u[in2])
+    end
     return v
 end
 
@@ -30,7 +31,14 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
-u = exp.(-4 .* (x_values .- 5) .^ 2)
+# u = exp.(-4 .* (x_values .- 5) .^ 2)
+# u = exp.(-30 .* (x_values .- 2) .^ 2) + exp.(-(x_values .- 5) .^ 2)
+# u = zeros(Nx)
+# u[1 .<= x_values .<= 2] = x_values[1 .<= x_values .<= 2] .- 1
+# u[2 .<= x_values .<= 3] = 3 .- x_values[2 .<= x_values .<= 3]
+u = ones(Nx)
+u[x_values .<= 5] .= 2
+
 # Plot the initial condition
 plot(xlabel="x", ylabel="Amplitude", title="Warming Kutler Lomax", legend=:topleft, grid=true)
 plot!(x_values, u, label="Initial Condition")
@@ -54,3 +62,12 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(sim_time+sim_time_2) seconds (numerically)")
+
+# # Run the simulation
+# for j in 1:20
+#     global u = Richtmyer(u,c)
+# end
+
+# # Numerical
+# plot!(x_values, u, label="After 20 time steps (numerically)")
+png("4_WKL")

@@ -7,8 +7,7 @@ function SOUPW(u, c)
     for i = 1:n
         in1 = mod1(i - 1, n)    # index of i-1 with periodic boundary
         in2 = mod1(i - 2, n)    # index of i-2 with periodic boundary
-        ip1 = mod1(i + 1, n)    # index of i+1 with periodic boundary
-        v[i] = u[i] - (c / 2) * (3*u[i] - 4*u[in1] + u[in2])  + (c^2 / 2) * (u[ip1] - 2 * u[i] + u[in1])
+        v[i] = u[i] - (c / 2) * (3*u[i] - 4*u[in1] + u[in2])
     end
     return v
 end
@@ -18,6 +17,7 @@ L = 10.0   # Length of the domain in the x direction (m)
 Δx = 0.01  # Grid spacing in the x direction (m)
 Nx = Int(L / Δx)   # Number of grid points in the x direction
 c = 0.5   # Courant Numbers
+# works for c<=0.2
 
 # Define the physical parameters
 α = 2   # Speed of Propagation

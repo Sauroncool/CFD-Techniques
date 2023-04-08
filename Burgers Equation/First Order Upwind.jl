@@ -21,7 +21,7 @@ Nx = Int(L / Δx)   # Number of grid points in the x direction
 
 # Define the simulation parameters
 sim_time = 2.0   # Total simulation time (s)
-Δt = Δx/10  # time step size (s)
+Δt = Δx  # time step size (s)
 num_time_step = round(sim_time / Δt)   # Number of time steps
 
 # Define the initial condition

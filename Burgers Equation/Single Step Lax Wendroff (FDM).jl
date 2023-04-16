@@ -27,8 +27,9 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
 u = zeros(Nx)
-u[x_values.<0.25] .= 1
-u[0.25 .<= x_values .<= 1.25] = 1.25 .- x_values[0.25 .<= x_values .<= 1.25]
+# u[x_values.<0.25] .= 1
+#  u[0.25 .<= x_values .<= 1.25] = 1.25 .- x_values[0.25 .<= x_values .<= 1.25]
+u[x_values.>1] .= 1
 
 
 # Plot the initial condition

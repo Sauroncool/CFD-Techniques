@@ -11,7 +11,7 @@ end
 
 # Define the grid parameters
 L = 10.0   # Length of the domain in the x direction 
-Δx = 0.01  # Grid spacing in the x direction 
+Δx = 0.005  # Grid spacing in the x direction 
 Nx = Int(L / Δx)   # Number of grid points in the x direction
 
 # Define the physical parameters
@@ -57,4 +57,4 @@ end
 
 # Numerical
 plot!(x_values, u, label="After $(round(sim_time*18/3,digits=2)) seconds (numerically)")
-# png("1b_Leapfrog")
+png("5b Leapfrog")

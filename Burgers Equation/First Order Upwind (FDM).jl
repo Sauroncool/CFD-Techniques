@@ -4,14 +4,14 @@ plotly(ticks=:native) # Allow to zoom and will adjust the grid
 function FOUPW(u, Δt, Δx)
     v = similar(u)
     v[2:end-1] .=u[2:end-1] .- ((Δt / Δx) .* ((u[2:end-1] .+ u[1:end-2])./2)) .* (u[2:end-1] .- u[1:end-2])
-    v[1] = 1.0    # Boundary condition
-    v[end] = 0.0  # Boundary condition
+    v[1] = 0.0    # Boundary condition
+    v[end] = 1.0  # Boundary condition
     return v
 end
 
 # Define the grid parameters
 L = 5.0   # Length of the domain in the x direction (m)
-Δx = 0.025  # Grid spacing in the x direction (m)
+Δx = 0.005  # Grid spacing in the x direction (m)
 Nx = Int(L / Δx)   # Number of grid points in the x direction
 
 
@@ -23,8 +23,10 @@ num_time_step = round(sim_time / Δt)   # Number of time steps
 # Define the initial condition
 x_values = range(0, stop=L, length=Nx)
 u = zeros(Nx)
-u[x_values .< 0.25] .= 1
-u[0.25 .<= x_values .<= 1.25] = 1.25 .- x_values[0.25 .<= x_values .<= 1.25]
+# u[x_values .< 0.25] .= 1
+# u[0.25 .<= x_values .<= 1.25] = 1.25 .- x_values[0.25 .<= x_values .<= 1.25]
+# u[x_values .< 1] .= 1
+u[x_values.>1] .= 1
 
 
 # Plot the initial condition
@@ -53,3 +55,4 @@ for j in 1:num_time_step
 end
 # Numerical
 plot!(x_values, u, label="After $(3*sim_time) seconds (numerically)")
+png("3 First Order Upwind")
